@@ -9,5 +9,9 @@ CREATE TABLE frumble (
 
 
 --- Part 2 ---
---- Month -> Price
-.import mrFrumbleData.txt frumble
+-- Month -> Price
+SELECT DISTINCT month, discount
+FROM frumble
+GROUP by month;
+
+-- 
