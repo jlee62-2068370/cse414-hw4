@@ -1,0 +1,74 @@
+Part C: Functional Dependency Theory
+
+a. (10 points) R(A,B,C,D,E) with functional dependencies D → B, CE → A.
+
+Given: R(A,B,C,D,E)
+  D → B
+  CE → A
+Decompose into BCNF:
+        R(A,B,C,D,E)
+        /         \
+    R1(D,B)    R2(A,C,D,E)
+                /        \
+            R3(CE,A)   R4(C,D,E)
+
+From this we can determine that the candidate key is (C,D,E) by removing all
+functional dependencies that violate BCNF.
+  D → B: violates BCNF since D is not a candidate key nor is it a superkey
+    R1 and R2 helps decompose/fix this issue since we remove the D → B dependency
+  CE → A: violates BCNF since CE is not a candidate key nor is it a superkey
+    R3 and R4 decompose R2 into two separate relations, removing the CE → A
+    dependency.
+
+By decomposing R into 4 different relations, we ensure that the
+functional dependencies are perseved and at the same time is in BCNF.
+
+b. (10 points) S(A,B,C,D,E) with functional dependencies A → E, BC → A, DE → B.
+
+Given: S(A,B,C,D,E)
+  A → E
+  BC → A
+  DE → B.
+Decompose into BCNF:
+        S(A,B,C,D,E)
+        /          \
+      S1(A,E)    S2(A,B,C,D)
+                  /       \
+              S3(BC,A)   S4(DE,B)
+
+When looking at the original functional dependencies:
+  A → E: violates BCNF since A is not a candidate key nor a superkey
+    S1 helps decompose the dependency between A and E.
+  BC → A: violates BCNF since BC is not a candidate key nor a superkey
+    S3 helps decompose S2 to remove the dependencies from BC → A. This makes it
+    such that BC is a candidate for R3 in particular. This allows it to keep the
+    original dependency, this time in BCNF
+  DE → B: violates BCNF since DE is not a candidate key nor a superkey
+    S4 is given after decomposing R2 into R3/R4. In this relation, it makes it so
+    that the candidate key, DE → B, keeps the dependency and follows the BCNF
+    guidelines.
+
+c. (5 points) All subsets of {A,B,C,D} are closed.
+
+Given that the subsets are all closed, this means that the functional dependencies
+are trivial dependencies. Meaning that {A,B,C,D} will always be included in itself.
+Hence, we can give it the form X → Y, where X and Y are both {A,B,C,D}
+
+d. (5 points) The only closed subsets of {A,B,C,D} are {} and {A,B,C,D}.
+
+Given that the subsets are only {A,B,C,D} and {}, we once again see a dependency
+that is trivial. This means we can give it the form X → Y as:
+  {} → {A,B,C,D}
+      or
+  {A,B,C,D} → {A,B,C,D}
+
+e. (5 points) The only closed subsets of {A,B,C,D} are {}, {B,C}, and {A,B,C,D}.
+
+Given that the only closed subsets are {}, {B,C}, and {A,B,C,D}, it is possible
+to establish non-trivial functional dependencies. Since we know from the previous
+example, just having the closed sets of {} and {A,B,C,D} we will have only trivial
+dependencies. However, the additiona of {B,C} makes it so that a functional dependency
+like {B,C} → {A} possible. If we decompose {A,B,C,D} and use {B,C} as a candidate
+key, the superkey of {A,B,C,D} supports this relationship.
+
+Write your answers in a text file named theory.txt.
